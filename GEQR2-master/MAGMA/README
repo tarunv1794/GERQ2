@@ -1,0 +1,12 @@
+To add any user defined subroutine in MAGMA it has to be declared inside "magmablas" or "src" directory first.
+Steps to add subroutine inside MAGMA:
+1. Add any user defined function in "magmablas" or "src"
+2. Include the file name in the list in Makefile.src
+3. If the user is adding any subroutines of BLAS such as GEMV or GEMM then add function declarations inside
+   "*magmablas_x_q.h" and "*magmablas_x_v1.h" inside "include" directory. Now assign the function declaration
+   of "*magmablas_x_q.h" to "*magmablas_x_v1.h" inside "magmablas_x_v2.h" in "include" directory. 
+4. If user is adding any subroutine other than BLAS then user has to add function definition in "*magma_x.h" in "include" directory.
+5. Now users can test the subroutines by writing their own testing examples with the help of other testing subroutines inside "testing/" directory.
+6. Now run "make".
+
+Note: * x indicates type of variable the user is using for their subroutine. For example in case of Double Precision x is "d".     

@@ -1,0 +1,34 @@
+PLASMA requires the following software packages to be installed in the system prior to PLASMA's installation:
+BLAS, CBLAS, LAPACK and Netlib LAPACK C Wrapper.
+
+To add any user defined subroutine in PLASMA it has to be declared inside BLAS or LAPACK first. As PLASMA is built over 
+BLAS and LAPACK therefore PLASMA subroutines internally call BLAS and LAPACK C Wrappers
+
+/////////////////////////////////////////////////////////////////////////////////////////
+                           Adding Subroutines in BLAS								  //
+///////////////////////////////////////////////////////////////////////////////////////
+
+To add any user defined subroutine in BLAS just add that subroutine in BLAS directory and modify the Makefile by adding the 
+function name in source list. Now to compile run make it will create an executable with an ".o" extension in the BLAS directory.
+
+To check functioning of user defined BLAS subroutine create a wrapper in "src/" directory of cblas and define those wrappers in 
+the file "cblas.h" and "cblas_f77.h" inside the "include/" directory of cblas. Modify the Makefile in "src/" directory by adding 
+the user defined wrapper name in source list. 
+Please note that one has to link the archive file of modified BLAS library correctly in "Makefile.in" inside the main folder of 
+cblas.
+Now to test the subroutines one can write their own examples by looking at the samples inside "example/" directory.
+
+/////////////////////////////////////////////////////////////////////////////////////////
+                           Adding Subroutines in LAPCK								  //
+///////////////////////////////////////////////////////////////////////////////////////
+
+To add any user defined subroutine in LAPACK just add that subroutine in "SRC" directory and modify the Makefile by adding the 
+function name in source list. Now to compile run make it will create an executable with an ".o" extension in the SRC directory.
+
+To check functioning of user defined LAPACK subroutine create two wrapper files "lapacke_functionname.c" and "lapacke_functionname_work.c"  
+in "src/" directory of "lapcke" folder which is the c wrapper for LAPACK . Now define those wrappers in the file "lapacke.h" inside the 
+"include/" directory of "lapacke" folder. Modify the Makefile in "src/" directory by adding the user defined wrapper name in source list. 
+
+Please note that if the user is compiling LAPCK using modified BLAS then the user has to link the archive file of modified BLAS library 
+and CBLAS library correctly in "make.inc" inside the main folder of LAPACK.
+Now to test the subroutines one can write their own examples by looking at the samples inside "example/" directory of "lapacke" folder.
